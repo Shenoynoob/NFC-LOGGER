@@ -1,0 +1,35 @@
+<script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyD1YO_XZNKDFOsmcnH2rph8hg12lW8dB1c",
+      authDomain: "nfc-backend-50a42.firebaseapp.com",
+      projectId: "nfc-backend-50a42",
+      storageBucket: "nfc-backend-50a42.appspot.com",
+      messagingSenderId: "640215071594",
+      appId: "1:640215071594:web:bec454ac5e4757a1df4313",
+      measurementId: "G-M2XG0JN69P"
+    };
+  
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  
+    const params = new URLSearchParams(window.location.search);
+    const uid = params.get("uid");
+  
+    console.log("UID:", uid);  // Debugging: Log UID to console
+  
+    if (uid) {
+      db.collection("nfc_logs").add({
+        uid: uid,
+        tappedAt: new Date().toISOString()
+      }).then(() => {
+        console.log("Data written to Firestore successfully!");
+        window.location.href = "https://breathtaking-operations-822607.framer.app/";
+      }).catch((error) => {
+        console.error("Error writing to Firebase:", error);
+        window.location.href = "https://breathtaking-operations-822607.framer.app/";
+      });
+    } else {
+      console.log("UID is missing!");
+      window.location.href = "https://breathtaking-operations-822607.framer.app/";
+    }
+  </script>
